@@ -1,16 +1,20 @@
 let file = "";
-let fileUrl = "https://pdf-temp-files.s3.us-west-2.amazonaws.com/QBTSHWOSYON0NVPTM7E0G9QNKU2Q9G7T/file.dat?X-Amz-Expires=3600&X-Amz-Security-Token=FwoGZXIvYXdzECIaDCdmLmeAm3En%2FpjbNyKCAddxV%2FnCxP8UVIoskumfcxw7qMUveX7OkU40%2FFvs6ruqd0mSWVJlDrfL6OaYLwS%2BOZ7ZLEwxULvjpq0p0Bs8okpvdpRJgaq3jCcTHp5HwrpWu2sWE1EBt6aPqRr%2FX%2BVXk31s0HE8k6Zk5FUChbL8dKoHwrOvzuGfPB9xBsPZ6xmPp5YojoiosAYyKHMuf0bb1tHijh%2BGnoPEsoCRk59jX674iM9vwSS%2FTBTK%2BFp0BbTdhSE%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA4NRRSZPHATAUTIUL/20240401/us-west-2/s3/aws4_request&X-Amz-Date=20240401T004710Z&X-Amz-SignedHeaders=host&X-Amz-Signature=bab07ab0cebcf641cac3343949c375579c35e89e746eb4daaa86a9684f9e7af6";
+let rawPageIndex = "";
+let fileUrl = "";
 const baseUrl = "https://api.pdf.co/v1";
 const upButton = document.querySelector("#getFileBtn");
 const fileInput = document.querySelector("#getFile");
 const checkButton = document.querySelector("#check");
+const isString = document.querySelector("#isString");
+const pages = document.querySelector("#pages");
 checkButton.addEventListener("click", () => {
     setTimeout(() => {
 
         if (fileUrl) {
             let rawBody = {
                 url: fileUrl,
-                searchString: "teste"
+                searchString: "departament",
+                wordMatchingMode: "SmartMatch"
             }
             let jsonBody = JSON.stringify(rawBody);
             const requestOptions = {
@@ -26,19 +30,34 @@ checkButton.addEventListener("click", () => {
             fetch(`${baseUrl}/pdf/find`, requestOptions)
                 .then(response => {
                     if (!response.ok) {
+                        isString.value = "Erro ao enviar requisição";
                         throw new Error('Erro ao enviar requisição');
                     }
                     return response.json(); // Se a resposta for JSON
                 })
                 .then(data => {
                     documentData = data;
-                    console.log('Arquivo lido com sucesso:', data);
+                    if (data.body.length > 0) {
+                        isString.value = "Sim";
+                        data.body.forEach((element, i) => {
+                            if (i != 0) {
+                                if (rawPageIndex != element.pageIndex) {
+                                    pages.value += ", ";
+                                }
+                            }
+                            pages.value += element.pageIndex +1
+                            rawPageIndex = element.pageIndex
+                        });
+                    } else {
+                        isString.value = "Não";
+                    }
                 })
                 .catch(error => {
                     console.error('Erro:', error);
                 });
         } else {
-            console.error('Nenhum arquivo selecionado');
+            isString.value = "Nenhum arquivo selecionado";
+            pages.value = "Nenhum arquivo selecionado";
         }
 
     }, 2000)
@@ -72,7 +91,6 @@ fileInput.addEventListener("change", (e) => {
             })
             .then(data => {
                 fileUrl = data.url;
-                console.log('Arquivo enviado com sucesso:', data);
                 // Faça algo com a resposta do servidor, se necessário
             })
             .catch(error => {
