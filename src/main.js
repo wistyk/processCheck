@@ -1,5 +1,5 @@
 let file = "";
-let fileUrl = "";
+let fileUrl = "https://pdf-temp-files.s3.us-west-2.amazonaws.com/QBTSHWOSYON0NVPTM7E0G9QNKU2Q9G7T/file.dat?X-Amz-Expires=3600&X-Amz-Security-Token=FwoGZXIvYXdzECIaDCdmLmeAm3En%2FpjbNyKCAddxV%2FnCxP8UVIoskumfcxw7qMUveX7OkU40%2FFvs6ruqd0mSWVJlDrfL6OaYLwS%2BOZ7ZLEwxULvjpq0p0Bs8okpvdpRJgaq3jCcTHp5HwrpWu2sWE1EBt6aPqRr%2FX%2BVXk31s0HE8k6Zk5FUChbL8dKoHwrOvzuGfPB9xBsPZ6xmPp5YojoiosAYyKHMuf0bb1tHijh%2BGnoPEsoCRk59jX674iM9vwSS%2FTBTK%2BFp0BbTdhSE%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA4NRRSZPHATAUTIUL/20240401/us-west-2/s3/aws4_request&X-Amz-Date=20240401T004710Z&X-Amz-SignedHeaders=host&X-Amz-Signature=bab07ab0cebcf641cac3343949c375579c35e89e746eb4daaa86a9684f9e7af6";
 const baseUrl = "https://api.pdf.co/v1";
 const upButton = document.querySelector("#getFileBtn");
 const fileInput = document.querySelector("#getFile");
@@ -7,11 +7,10 @@ const checkButton = document.querySelector("#check");
 checkButton.addEventListener("click", () => {
     setTimeout(() => {
 
-
         if (fileUrl) {
             let rawBody = {
                 url: fileUrl,
-                searchString: "computer is equipped"
+                searchString: "teste"
             }
             let jsonBody = JSON.stringify(rawBody);
             const requestOptions = {
@@ -32,6 +31,7 @@ checkButton.addEventListener("click", () => {
                     return response.json(); // Se a resposta for JSON
                 })
                 .then(data => {
+                    documentData = data;
                     console.log('Arquivo lido com sucesso:', data);
                 })
                 .catch(error => {
@@ -41,7 +41,7 @@ checkButton.addEventListener("click", () => {
             console.error('Nenhum arquivo selecionado');
         }
 
-    }, 3000)
+    }, 2000)
 });
 
 upButton.addEventListener("click", () => {
