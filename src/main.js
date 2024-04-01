@@ -1,19 +1,29 @@
 let file = "";
-let rawPageIndex = "";
 let fileUrl = "";
+let textToFetch = document.querySelector("#textToFetch");
+let fetchText = "";
 const baseUrl = "https://api.pdf.co/v1";
 const upButton = document.querySelector("#getFileBtn");
 const fileInput = document.querySelector("#getFile");
 const checkButton = document.querySelector("#check");
 const isString = document.querySelector("#isString");
 const pages = document.querySelector("#pages");
+
+textToFetch.addEventListener("input", () => {
+    fetchText = textToFetch.value;
+});
+
+
+
 checkButton.addEventListener("click", () => {
+    pages.value = "";
+    isString.value = "";
     setTimeout(() => {
 
         if (fileUrl) {
             let rawBody = {
                 url: fileUrl,
-                searchString: "departament",
+                searchString: fetchText,
                 wordMatchingMode: "SmartMatch"
             }
             let jsonBody = JSON.stringify(rawBody);
@@ -40,13 +50,14 @@ checkButton.addEventListener("click", () => {
                     if (data.body.length > 0) {
                         isString.value = "Sim";
                         data.body.forEach((element, i) => {
+
+                            console.log("i", i, "element", element.pageIndex)
                             if (i != 0) {
-                                if (rawPageIndex != element.pageIndex) {
+                                if (i != element.pageIndex +1) {
                                     pages.value += ", ";
                                 }
                             }
-                            pages.value += element.pageIndex +1
-                            rawPageIndex = element.pageIndex
+                            pages.value += element.pageIndex + 1
                         });
                     } else {
                         isString.value = "Não";

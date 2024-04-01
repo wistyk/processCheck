@@ -10,12 +10,16 @@
       <h1>Validador de processos</h1>
       <button id="getFileBtn">Adicionar PDF</button>
       <input type='file' id="getFile">
+      <p>Digite a palavra ou frase para buscar:</p>
+      <input type="text" placeholder="Digite o seu texto aqui" id="textToFetch" />
       <button id="check">Verificar</button>
       <h2>Resultados</h2>
       <p>Conteúdo localizado?</p>
       <input type="text" id="isString" disabled>
       <p>Páginas localizadas:</p>
       <input type="text" id="pages" disabled>
+      <br>
+      <i>Em caso de palavra repetida na mesma página, a página repetirá!</i>
       <script src="./src/main.js"></script>
    </body>
 </html>
