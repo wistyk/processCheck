@@ -51,7 +51,6 @@ checkButton.addEventListener("click", () => {
                         isString.value = "Sim";
                         data.body.forEach((element, i) => {
 
-                            console.log("i", i, "element", element.pageIndex)
                             if (i != 0) {
                                 if (i != element.pageIndex +1) {
                                     pages.value += ", ";
