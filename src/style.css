@@ -3,3 +3,7 @@
     width: 120px;
     height: 30px;
 }
+
+#getFile {
+    display: none;
+}
