@@ -1,7 +1,8 @@
 let file = "";
-let fileUrl = "";
+let fileUrl = "boliho2878@evimzo.com_74tFGanRRB7kfF1369fuUQDZmaYyHwjKVl3LWZq06i78VY4FFt8urPF8D5cR3x4A";
 let textToFetch = document.querySelector("#textToFetch");
 let fetchText = "";
+const authorization = "bennyllama16@mummytobee.com_3rtlEaGeZ0eHFW1W0ic81N8rDh5taxgFGm7gzwVRySf25z95I4S78ylfN18kz4EF";
 const baseUrl = "https://api.pdf.co/v1";
 const upButton = document.querySelector("#getFileBtn");
 const fileInput = document.querySelector("#getFile");
@@ -12,8 +13,6 @@ const pages = document.querySelector("#pages");
 textToFetch.addEventListener("input", () => {
     fetchText = textToFetch.value;
 });
-
-
 
 checkButton.addEventListener("click", () => {
     pages.value = "";
@@ -30,7 +29,7 @@ checkButton.addEventListener("click", () => {
             const requestOptions = {
                 method: 'POST',
                 headers: {
-                    'x-api-key': 'wistykest@yahoo.fr_r8PXNFh28OU2t3ggJ84VgL1RYu7L7W1CJTDKvKgDf34V406xLlUnXZdtMMHy80lP',
+                    'x-api-key': authorization,
                     'Content-Type': 'application/json'
                     // Adicione outros cabeçalhos conforme necessário
                 },
@@ -41,7 +40,7 @@ checkButton.addEventListener("click", () => {
                 .then(response => {
                     if (!response.ok) {
                         isString.value = "Erro ao enviar requisição";
-                        throw new Error('Erro ao enviar requisição');
+                        throw new Error(response.message);
                     }
                     return response.json(); // Se a resposta for JSON
                 })
@@ -86,7 +85,7 @@ fileInput.addEventListener("change", (e) => {
         const requestOptions = {
             method: 'POST',
             headers: {
-                'x-api-key': 'wistykest@yahoo.fr_r8PXNFh28OU2t3ggJ84VgL1RYu7L7W1CJTDKvKgDf34V406xLlUnXZdtMMHy80lP'
+                'x-api-key': authorization
                 // Adicione outros cabeçalhos conforme necessário
             },
             body: formData
