@@ -1,5 +1,5 @@
 let file = "";
-let fileUrl = "boliho2878@evimzo.com_74tFGanRRB7kfF1369fuUQDZmaYyHwjKVl3LWZq06i78VY4FFt8urPF8D5cR3x4A";
+let fileUrl = "";
 let textToFetch = document.querySelector("#textToFetch");
 let fetchText = "";
 const authorization = "juilet@mailcuk.com_GCXoygQf8JGKlH3l1lE1BKJacl7J90V97KU5f218ItoC64sPPS6KNr0PcF93iYgk";
